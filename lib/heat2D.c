@@ -96,7 +96,7 @@ double*** heat2D(grid_parameters_t grid_parameters,
 		it = 0;
 		do
 		{
-			perform_cgm(&solver_data,
+            perform_cgm(&solver_data,
                         grid_parameters,
                         &epsilon);
 
