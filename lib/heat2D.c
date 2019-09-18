@@ -53,58 +53,58 @@ double*** heat2D(grid_parameters_t grid_parameters,
 
 	/* Allocate solver and result data */
 	allocate_solver_data_mem(&solver_data,
-			                 grid_parameters,
-			                 &grid_coordinates);
+                             grid_parameters,
+                             &grid_coordinates);
 
 	results = result_vector();
 
 	set_initial_temp(&solver_data,
-			         grid_parameters);
+                     grid_parameters);
 
 	generate_grid_coordinates(grid_parameters,
-			                  &grid_coordinates);
+                              &grid_coordinates);
 
 	/* Entering ICCG loop */
 	countert = 0;
 	time_parameters.t = to;
 	do{
 		calc_coefficient_matrix(grid_parameters,
-								grid_coordinates,
-								time_parameters,
-								physical_params,
-								&solver_data,
-								source_equation,
-								boundary_temperatures);
+                                grid_coordinates,
+                                time_parameters,
+                                physical_params,
+                                &solver_data,
+                                source_equation,
+                                boundary_temperatures);
 
 		store_coefficient_matrix(&solver_data,
-				                 grid_parameters);
+                                 grid_parameters);
 
 		incomplete_cholesky_factorization(&solver_data,
-		                                  grid_parameters);
+                                          grid_parameters);
 
 		epsilon = dot_product(solver_data.r,
-				              solver_data.r,
-				              nt);
+                              solver_data.r,
+                              nt);
 
 		solve_Mz_is_r(&solver_data,
-				      grid_parameters);
+                      grid_parameters);
 
 		set_solver_data(&solver_data,
-				        grid_parameters);
+                        grid_parameters);
 
 		/*Perform solver iterations*/
 		it = 0;
 		do
 		{
 			perform_cgm(&solver_data,
-					    grid_parameters,
-					    &epsilon);
+                        grid_parameters,
+                        &epsilon);
 
 			it = it + 1;
 		}while (it < imax && epsilon > error);
 
 		set_current_temperature(&solver_data,
-				                grid_parameters);
+                                grid_parameters);
 
 		++countert;
 		time_parameters.t += dt;
@@ -112,10 +112,11 @@ double*** heat2D(grid_parameters_t grid_parameters,
 
 	/* Processing results */
 	set_temperature_result_data(&solver_data,
-			                    grid_parameters);
+                                grid_parameters);
 
 	/* Deallocate solver data */
-	deallocate_solver_data_mem(&solver_data, grid_parameters);
+	deallocate_solver_data_mem(&solver_data,
+                               grid_parameters);
 
 	/* Setting results */
 	results[X_COORDINATES] = grid_coordinates.X;
