@@ -32,43 +32,43 @@ double*** heat2D(grid_parameters_t grid_parameters,
  * return   results
  */
 {
-	int nx, ny, maxts;
-	int imax, nt, it, countert;
-	double error, dt, epsilon, to;
-	double ***results;
-	grid_coordinates_t grid_coordinates = {0};
-	solver_data_t solver_data = {0};
+    int nx, ny, maxts;
+    int imax, nt, it, countert;
+    double error, dt, epsilon, to;
+    double ***results;
+    grid_coordinates_t grid_coordinates = {0};
+    solver_data_t solver_data = {0};
 
-	nx = grid_parameters.nx;
-	ny = grid_parameters.ny;
+    nx = grid_parameters.nx;
+    ny = grid_parameters.ny;
 
-	to = time_parameters.to;
-	maxts = time_parameters.maxts;
+    to = time_parameters.to;
+    maxts = time_parameters.maxts;
 
-	dt = (time_parameters.tf - time_parameters.to) / time_parameters.maxts;
+    dt = (time_parameters.tf - time_parameters.to) / time_parameters.maxts;
 
-	nt = nx * ny;
-	imax = 500;         //Maximum iterations ICCG
-	error = 1e-30;      //Tolerance
+    nt = nx * ny;
+    imax = 500;         //Maximum iterations ICCG
+    error = 1e-30;      //Tolerance
 
-	/* Allocate solver and result data */
-	allocate_solver_data_mem(&solver_data,
+    /* Allocate solver and result data */
+    allocate_solver_data_mem(&solver_data,
                              grid_parameters,
                              &grid_coordinates);
 
-	results = result_vector();
+    results = result_vector();
 
-	set_initial_temp(&solver_data,
+    set_initial_temp(&solver_data,
                      grid_parameters);
 
-	generate_grid_coordinates(grid_parameters,
+    generate_grid_coordinates(grid_parameters,
                               &grid_coordinates);
 
-	/* Entering ICCG loop */
-	countert = 0;
-	time_parameters.t = to;
-	do{
-		calc_coefficient_matrix(grid_parameters,
+    /* Entering ICCG loop */
+    countert = 0;
+    time_parameters.t = to;
+    do{
+        calc_coefficient_matrix(grid_parameters,
                                 grid_coordinates,
                                 time_parameters,
                                 physical_params,
@@ -76,52 +76,52 @@ double*** heat2D(grid_parameters_t grid_parameters,
                                 source_equation,
                                 boundary_temperatures);
 
-		store_coefficient_matrix(&solver_data,
+        store_coefficient_matrix(&solver_data,
                                  grid_parameters);
 
-		incomplete_cholesky_factorization(&solver_data,
+        incomplete_cholesky_factorization(&solver_data,
                                           grid_parameters);
 
-		epsilon = dot_product(solver_data.r,
+        epsilon = dot_product(solver_data.r,
                               solver_data.r,
                               nt);
 
-		solve_Mz_is_r(&solver_data,
+        solve_Mz_is_r(&solver_data,
                       grid_parameters);
 
-		set_solver_data(&solver_data,
+        set_solver_data(&solver_data,
                         grid_parameters);
 
-		/*Perform solver iterations*/
-		it = 0;
-		do
-		{
+        /*Perform solver iterations*/
+        it = 0;
+        do
+        {
             perform_cgm(&solver_data,
                         grid_parameters,
                         &epsilon);
 
-			it = it + 1;
-		}while (it < imax && epsilon > error);
+            it = it + 1;
+        }while (it < imax && epsilon > error);
 
-		set_current_temperature(&solver_data,
+        set_current_temperature(&solver_data,
                                 grid_parameters);
 
-		++countert;
-		time_parameters.t += dt;
-	}while(countert < maxts);
+        ++countert;
+        time_parameters.t += dt;
+    }while(countert < maxts);
 
-	/* Processing results */
-	set_temperature_result_data(&solver_data,
+    /* Processing results */
+    set_temperature_result_data(&solver_data,
                                 grid_parameters);
 
-	/* Deallocate solver data */
-	deallocate_solver_data_mem(&solver_data,
+    /* Deallocate solver data */
+    deallocate_solver_data_mem(&solver_data,
                                grid_parameters);
 
-	/* Setting results */
-	results[X_COORDINATES] = grid_coordinates.X;
-	results[Y_COORDINATES] = grid_coordinates.Y;
-	results[TEMPERATURE] = solver_data.T;
+    /* Setting results */
+    results[X_COORDINATES] = grid_coordinates.X;
+    results[Y_COORDINATES] = grid_coordinates.Y;
+    results[TEMPERATURE] = solver_data.T;
 
-	return results;
+    return results;
 }
