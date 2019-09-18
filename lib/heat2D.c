@@ -15,10 +15,10 @@
 
 /*-----------------------------------------------------------------------------------------------*/
 double*** heat2D(grid_parameters_t grid_parameters,
-				 time_parameters_t time_parameters,
-				 physical_params_t physical_params,
-				 boundary_temperatures_t boundary_temperatures,
-				 double (*source_equation) (double, double, double))
+                 time_parameters_t time_parameters,
+                 physical_params_t physical_params,
+                 boundary_temperatures_t boundary_temperatures,
+                 double (*source_equation) (double, double, double))
 /*
  * This function solves the 2D transient heat conduction equation,
  * gamma*div(grad(T))+q = rho*Cp*dT/dt
