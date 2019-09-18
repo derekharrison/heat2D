@@ -89,6 +89,7 @@ int main(int argc, char *argv[])
 	printf("\ntime spent: %f\n", time_spent);
 
 	return 0;
+
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -105,7 +106,8 @@ double source_equation(double x, double y, double t)
 {
 	double Sq = 10;
 
-	return Sq;										//Enter equation for the source term here
+	return Sq;
+
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -120,7 +122,8 @@ double Tnfunc(double x, double t)
 {
     double T = 0.0;
 
-	return T;								//Enter the equation for the north boundary condition here
+	return T;
+
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -135,7 +138,8 @@ double Tsfunc(double x, double t)
 {
 	double T = 0.0;
 
-	return T;								//Enter the equation for the south boundary condition here
+	return T;
+
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -149,7 +153,8 @@ double Twfunc(double y, double t)
 {
 	double T = 0.0;
 
-	return T;								//Enter the equation for the west boundary condition here
+	return T;
+
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -163,7 +168,8 @@ double Tefunc(double y, double t)
 {
 	double T = 0.0;
 
-	return T;								//Enter the equation for the east boundary condition here.
+	return T;
+
 }
 
 
