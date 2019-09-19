@@ -149,6 +149,7 @@ double Twfunc(double y, double t)
  *
  * input    y
  * input    t
+ * return   T
  */
 {
     double T = 0.0;
@@ -164,6 +165,7 @@ double Tefunc(double y, double t)
  *
  * input    y
  * input    t
+ * return   T
  */
 {
     double T = 0.0;
