@@ -11,6 +11,7 @@
 #include "user_types.h"
 
 double*** result_vector();
+void free_result_vector(double*** results);
 double *matrix1D(int np);
 void free_matrix1D(double *a);
 double **matrix2D( int nm, int np);

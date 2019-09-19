@@ -25,6 +25,18 @@ double*** result_vector()
 }
 
 /*-----------------------------------------------------------------------------------------------*/
+void free_result_vector(double*** results)
+/*
+ * Allocate memory for result vector
+ *
+ * return results
+ */
+{
+    free(results);
+
+}
+
+/*-----------------------------------------------------------------------------------------------*/
 double *matrix1D(int np)
 /*
  * Allocate memory for vector of size np

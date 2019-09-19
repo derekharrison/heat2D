@@ -13,9 +13,9 @@
 #include <math.h>
 #include <time.h>
 
-#include "../inc/user_types.h"
 #include "../inc/heat2D.h"
 #include "../inc/memory_functions.h"
+#include "../inc/user_types.h"
 
 double source_equation(double x,double y, double t);
 double Tnfunc(double x, double t);
@@ -87,6 +87,12 @@ int main(int argc, char *argv[])
 
     time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\ntime spent: %f\n", time_spent);
+
+    /* Deallocating results array */
+    free_matrix2D(X, grid_parameters.nx);
+    free_matrix2D(Y, grid_parameters.nx);
+    free_matrix2D(T, grid_parameters.nx);
+    free_result_vector(results);
 
     return 0;
 

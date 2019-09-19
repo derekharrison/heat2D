@@ -34,7 +34,7 @@ double*** heat2D(grid_parameters_t grid_parameters,
 {
     int nx, ny, maxts;
     int imax, nt, it, countert;
-    double error, dt, epsilon, to;
+    double error, dt, epsilon, to, tf;
     double ***results;
     grid_coordinates_t grid_coordinates = {0};
     solver_data_t solver_data = {0};
@@ -43,9 +43,10 @@ double*** heat2D(grid_parameters_t grid_parameters,
     ny = grid_parameters.ny;
 
     to = time_parameters.to;
+    tf = time_parameters.tf;
     maxts = time_parameters.maxts;
 
-    dt = (time_parameters.tf - time_parameters.to) / time_parameters.maxts;
+    dt = (tf - to) / maxts;
 
     nt = nx * ny;
     imax = 500;         //Maximum iterations ICCG
