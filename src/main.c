@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
     time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\ntime spent: %f\n", time_spent);
 
-    /* Deallocating results array */
+    /* Deallocating results memory */
     free_matrix2D(solver_results.X, grid_parameters.nx);
     free_matrix2D(solver_results.Y, grid_parameters.nx);
     free_matrix2D(solver_results.T, grid_parameters.nx);
