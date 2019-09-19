@@ -139,7 +139,8 @@ void allocate_solver_data_mem(solver_data_t* solver_data,
 
 /*-----------------------------------------------------------------------------------------------*/
 void deallocate_solver_data_mem(solver_data_t* solver_data,
-                                grid_parameters_t grid_parameters)
+                                grid_parameters_t grid_parameters,
+                                grid_coordinates_t* grid_coordinates)
 /*
  * Deallocate memory of solver data
  *
@@ -162,5 +163,9 @@ void deallocate_solver_data_mem(solver_data_t* solver_data,
     free_matrix1D(solver_data->x);
     free_matrix1D(solver_data->x);
     free_matrix1D(solver_data->r);
+    free_matrix2D(solver_data->T, nx+1);
+    free_matrix2D(grid_coordinates->X, nx+1);
+    free_matrix2D(grid_coordinates->Y, nx+1);
+
 
 }

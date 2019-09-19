@@ -61,4 +61,10 @@ typedef struct solver_data {
     double **T;
 } solver_data_t;
 
+typedef struct solver_results {
+    double** X;
+    double** Y;
+    double** T;
+} solver_results_t;
+
 #endif /* USER_TYPES_H_ */

@@ -22,6 +22,7 @@ void allocate_solver_data_mem(solver_data_t* solver_data,
                               grid_parameters_t grid_parameters,
                               grid_coordinates_t* grid_coordinates);
 void deallocate_solver_data_mem(solver_data_t* solver_data,
-                                grid_parameters_t grid_parameters);
+                                grid_parameters_t grid_parameters,
+                                grid_coordinates_t* grid_coordinates);
 
 #endif /* MEMORY_FUNCTIONS_H_ */

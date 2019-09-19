@@ -14,11 +14,12 @@
 #include "../inc/vector_operations.h"
 
 /*-----------------------------------------------------------------------------------------------*/
-double*** heat2D(grid_parameters_t grid_parameters,
-                 time_parameters_t time_parameters,
-                 physical_params_t physical_params,
-                 boundary_temperatures_t boundary_temperatures,
-                 double (*source_equation) (double, double, double))
+void heat2D(grid_parameters_t grid_parameters,
+            time_parameters_t time_parameters,
+            physical_params_t physical_params,
+            boundary_temperatures_t boundary_temperatures,
+            double (*source_equation) (double, double, double),
+            solver_results_t* solver_results)
 /*
  * This function solves the 2D transient heat conduction equation,
  * gamma*div(grad(T))+q = rho*Cp*dT/dt
@@ -35,7 +36,6 @@ double*** heat2D(grid_parameters_t grid_parameters,
     int nx, ny, maxts;
     int imax, nt, it, countert;
     double error, dt, epsilon, to, tf;
-    double ***results;
     grid_coordinates_t grid_coordinates = {0};
     solver_data_t solver_data = {0};
 
@@ -56,8 +56,6 @@ double*** heat2D(grid_parameters_t grid_parameters,
     allocate_solver_data_mem(&solver_data,
                              grid_parameters,
                              &grid_coordinates);
-
-    results = result_vector();
 
     set_initial_temp(&solver_data,
                      grid_parameters);
@@ -115,14 +113,13 @@ double*** heat2D(grid_parameters_t grid_parameters,
     set_temperature_result_data(&solver_data,
                                 grid_parameters);
 
+    solver_results->X = grid_coordinates.X;
+    solver_results->Y = grid_coordinates.Y;
+    solver_results->T = solver_data.T;
+
     /* Deallocate solver data */
     deallocate_solver_data_mem(&solver_data,
-                               grid_parameters);
+                               grid_parameters,
+                               &grid_coordinates);
 
-    /* Setting results */
-    results[X_COORDINATES] = grid_coordinates.X;
-    results[Y_COORDINATES] = grid_coordinates.Y;
-    results[TEMPERATURE] = solver_data.T;
-
-    return results;
 }

@@ -31,11 +31,11 @@ int main(int argc, char *argv[])
 {
     clock_t begin, end;
     double time_spent;
-    double ***results, **T, **X, **Y;
     grid_parameters_t grid_parameters = {0};
     time_parameters_t time_parameters = {0};
     physical_params_t physical_params = {0};
     boundary_temperatures_t boundary_temperatures = {0};
+    solver_results_t solver_results = {0};
 
     /* Adjustable parameters */
     grid_parameters.Lx = 4.0;           //Length of domain (m) along x coordinate
@@ -58,21 +58,22 @@ int main(int argc, char *argv[])
     boundary_temperatures.Tefunc = Tefunc;
     boundary_temperatures.Twfunc = Twfunc;
 
+    /* allocating results memory */
+    solver_results.X = matrix2D(grid_parameters.nx, grid_parameters.ny);
+    solver_results.Y = matrix2D(grid_parameters.nx, grid_parameters.ny);
+    solver_results.T = matrix2D(grid_parameters.nx, grid_parameters.ny);
+
     /* Executing solver */
     begin = clock();
 
-    results = heat2D(grid_parameters,
-                     time_parameters,
-                     physical_params,
-                     boundary_temperatures,
-                     source_equation);
+    heat2D(grid_parameters,
+           time_parameters,
+           physical_params,
+           boundary_temperatures,
+           source_equation,
+           &solver_results);
 
     end = clock();
-
-    /* Set results */
-    T = results[TEMPERATURE];
-    X = results[X_COORDINATES];
-    Y = results[Y_COORDINATES];
 
     /* Print some results */
     int i, j;
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
     {
         for (i = 1; i <= grid_parameters.nx; i++)
         {
-            printf("T[%d][%d]: %f    ", i, j, T[i][j]);
+            printf("T[%d][%d]: %f    ", i, j, solver_results.T[i][j]);
         }
         printf("\n");
     }
@@ -89,10 +90,9 @@ int main(int argc, char *argv[])
     printf("\ntime spent: %f\n", time_spent);
 
     /* Deallocating results array */
-    free_matrix2D(X, grid_parameters.nx);
-    free_matrix2D(Y, grid_parameters.nx);
-    free_matrix2D(T, grid_parameters.nx);
-    free_result_vector(results);
+    free_matrix2D(solver_results.X, grid_parameters.nx);
+    free_matrix2D(solver_results.Y, grid_parameters.nx);
+    free_matrix2D(solver_results.T, grid_parameters.nx);
 
     return 0;
 
