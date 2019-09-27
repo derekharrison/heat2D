@@ -10,6 +10,9 @@
 
 #define SIZE_RESULTS 3
 
+typedef double (*source)(double x, double y, double t);
+typedef double (*boundary_temperature)(double x, double t);
+
 enum result_type {
     X_COORDINATES = 0,
     Y_COORDINATES = 1,
@@ -37,11 +40,10 @@ typedef struct physical_params {
 } physical_params_t;
 
 typedef struct boundary_temperatures {
-    double (*q)(double x, double y, double t);
-    double (*Tnfunc)(double x, double t);
-    double (*Tsfunc)(double x, double t);
-    double (*Twfunc)(double y, double t);
-    double (*Tefunc)(double y, double t);
+    boundary_temperature Tnfunc;
+    boundary_temperature Tsfunc;;
+    boundary_temperature Twfunc;
+    boundary_temperature Tefunc;
 } boundary_temperatures_t;
 
 typedef struct grid_coordinates {
