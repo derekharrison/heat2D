@@ -103,7 +103,6 @@ void calc_coefficient_matrix(grid_parameters_t grid_parameters,
     d2 = deltax * deltay;
     K = d2 * physical_params.rho * physical_params.Cp / dt;
 
-    //Preliminary ICCG calculations
     //Generating central coefficients and source terms
     for (j = 2; j <= ny - 1; j++)
         for (i = 2; i<= nx - 1; i++)
