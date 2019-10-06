@@ -10,21 +10,6 @@
 #include "../inc/user_types.h"
 
 /*-----------------------------------------------------------------------------------------------*/
-double*** result_vector()
-/*
- * Allocate memory for result vector
- *
- * return results
- */
-{
-    double*** results;
-    results = malloc(sizeof(double**) * SIZE_RESULTS);
-
-    return results;
-
-}
-
-/*-----------------------------------------------------------------------------------------------*/
 double *matrix1D(int np)
 /*
  * Allocate memory for vector of size np
@@ -118,7 +103,6 @@ void allocate_solver_data_mem(solver_data_t* solver_data,
     solver_data->x = matrix1D(nt+1);
     solver_data->xo = matrix1D(nx*ny+1);
     solver_data->r = matrix1D(nt+1);
-    solver_data->T = matrix2D(nx+1,ny+1);
 
     grid_coordinates->X = matrix2D(nx+1,ny+1);
     grid_coordinates->Y = matrix2D(nx+1,ny+1);
@@ -127,7 +111,8 @@ void allocate_solver_data_mem(solver_data_t* solver_data,
 
 /*-----------------------------------------------------------------------------------------------*/
 void deallocate_solver_data_mem(solver_data_t* solver_data,
-                                grid_parameters_t grid_parameters)
+                                grid_parameters_t grid_parameters,
+                                grid_coordinates_t* grid_coordinates)
 /*
  * Deallocate memory of solver data
  *
@@ -148,7 +133,10 @@ void deallocate_solver_data_mem(solver_data_t* solver_data,
     free_matrix1D(solver_data->z);
     free_matrix1D(solver_data->p);
     free_matrix1D(solver_data->x);
-    free_matrix1D(solver_data->x);
+    free_matrix1D(solver_data->xo);
     free_matrix1D(solver_data->r);
+
+    free_matrix2D(grid_coordinates->X, nx+1);
+    free_matrix2D(grid_coordinates->Y, nx+1);
 
 }

@@ -54,7 +54,6 @@ typedef struct solver_data {
     double *x;
     double *xo;
     double *r;
-    double **T;
 } solver_data_t;
 
 typedef struct solver_results {

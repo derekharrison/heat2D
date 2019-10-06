@@ -34,6 +34,8 @@ void set_solver_data(solver_data_t* solver_data,
                      grid_parameters_t grid_parameters);
 void set_current_temperature(solver_data_t* solver_data,
                              grid_parameters_t grid_parameters);
-void set_temperature_result_data(solver_data_t* solver_data,
-                                 grid_parameters_t grid_parameters);
+void set_result_data(solver_data_t* solver_data,
+                     grid_coordinates_t* grid_coordinates,
+                     grid_parameters_t grid_parameters,
+                     solver_results_t* solver_results);
 #endif /* HEAT2D_SUPPORT_H_ */

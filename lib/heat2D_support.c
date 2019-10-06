@@ -475,13 +475,17 @@ void set_current_temperature(solver_data_t* solver_data,
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-void set_temperature_result_data(solver_data_t* solver_data,
-                                 grid_parameters_t grid_parameters)
+void set_result_data(solver_data_t* solver_data,
+                     grid_coordinates_t* grid_coordinates,
+                     grid_parameters_t grid_parameters,
+                     solver_results_t* solver_results)
 /*
- * Set temperature result data
+ * Set result data
  *
- * output    solver_data
+ * input    solver_data
+ * input    grid_coordinates
  * input    grid_parameters
+ * output   solver_results
  */
 {
     int i, j, nx, ny;
@@ -491,6 +495,10 @@ void set_temperature_result_data(solver_data_t* solver_data,
 
     for (i = 1; i <= nx; i++)
         for (j = 1; j <= ny; j++)
-            solver_data->T[i][j] = solver_data->x[i+(j-1)*nx];
+        {
+            solver_results->T[i][j] = solver_data->x[i+(j-1)*nx];
+            solver_results->grid_coordinates.X[i][j] = grid_coordinates->X[i][j];
+            solver_results->grid_coordinates.Y[i][j] = grid_coordinates->Y[i][j];
+        }
 
 }

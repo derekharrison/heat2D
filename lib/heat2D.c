@@ -30,7 +30,7 @@ void heat2D(grid_parameters_t grid_parameters,
  * input    physical_params
  * input    boundary_temperatures
  * input    source_equation
- * return   results
+ * output   solver_results
  */
 {
     int nx, ny, maxts;
@@ -109,15 +109,14 @@ void heat2D(grid_parameters_t grid_parameters,
     }while(countert < maxts);
 
     /* Processing results */
-    set_temperature_result_data(&solver_data,
-                                grid_parameters);
+    set_result_data(&solver_data,
+                    &grid_coordinates,
+                    grid_parameters,
+                    solver_results);
 
     /* Deallocate solver data */
-    deallocate_solver_data_mem(&solver_data, grid_parameters);
-
-    /* Setting results */
-    solver_results->grid_coordinates.X = grid_coordinates.X;
-    solver_results->grid_coordinates.Y = grid_coordinates.Y;
-    solver_results->T = solver_data.T;
+    deallocate_solver_data_mem(&solver_data,
+                               grid_parameters,
+                               &grid_coordinates);
 
 }
