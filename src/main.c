@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     time_parameters.maxts = 100;        //amount of timesteps
     time_parameters.to = 0.0;            //initial time (s). Start of simulation
-    time_parameters.tf = 2.0;            //final time (s). End of simulation
+    time_parameters.tf = 1.0;            //final time (s). End of simulation
 
     physical_params.gamma = 2.0;        //Heat conductivity (W/mK)
     physical_params.rho = 1.0;            //material density (kg/m3)
@@ -110,7 +110,7 @@ double source_equation(double x, double y, double t)
  * return    Sq
  */
 {
-    double Sq = 10;
+    double Sq = 0.0;
 
     return Sq;                                        //Enter equation for the source term here
 
@@ -128,7 +128,7 @@ double Tnfunc(double x, double t)
 {
     double T = 1.0;
 
-    return T + sin(2*t);                                //Enter the equation for the north boundary condition here
+    return T;                                //Enter the equation for the north boundary condition here
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -143,7 +143,7 @@ double Tsfunc(double x, double t)
 {
     double T = 1.0;
 
-    return T + sin(2*t);                                //Enter the equation for the south boundary condition here
+    return T;                                //Enter the equation for the south boundary condition here
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -157,7 +157,7 @@ double Twfunc(double y, double t)
 {
     double T = 1.0;
 
-    return T + sin(2*t);                                //Enter the equation for the west boundary condition here
+    return T;                                //Enter the equation for the west boundary condition here
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -169,9 +169,9 @@ double Tefunc(double y, double t)
  * input    t
  */
 {
-    double T = 4.0;
+    double T = 1.0;
 
-    return T + sin(2*t);                                //Enter the equation for the east boundary condition here.
+    return T;                                //Enter the equation for the east boundary condition here.
 }
 
 
