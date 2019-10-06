@@ -17,22 +17,10 @@ double*** result_vector()
  * return results
  */
 {
-    double*** results;
+	double*** results;
     results = malloc(sizeof(double**) * SIZE_RESULTS);
 
     return results;
-
-}
-
-/*-----------------------------------------------------------------------------------------------*/
-void free_result_vector(double*** results)
-/*
- * Allocate memory for result vector
- *
- * return results
- */
-{
-    free(results);
 
 }
 
@@ -61,7 +49,7 @@ void free_matrix1D(double *vec_ptr)
  * input vec_ptr
  */
 {
-    free(vec_ptr);
+	free(vec_ptr);
 
 }
 
@@ -105,8 +93,8 @@ void free_matrix2D(double** m, int nm)
 
 /*-----------------------------------------------------------------------------------------------*/
 void allocate_solver_data_mem(solver_data_t* solver_data,
-                              grid_parameters_t grid_parameters,
-                              grid_coordinates_t* grid_coordinates)
+		                      grid_parameters_t grid_parameters,
+		                      grid_coordinates_t* grid_coordinates)
 /*
  * Allocate memory for solver data
  *
@@ -115,32 +103,31 @@ void allocate_solver_data_mem(solver_data_t* solver_data,
  * output   grid_coordinates
  */
 {
-    int nx, ny, nt;
+	int nx, ny, nt;
 
-    nx = grid_parameters.nx;
-    ny = grid_parameters.ny;
+	nx = grid_parameters.nx;
+	ny = grid_parameters.ny;
 
-    nt = nx * ny;
+	nt = nx * ny;
 
-    solver_data->A = matrix2D(nt+1,3+1);
-    solver_data->Astor = matrix2D(nt+1,3+1);
-    solver_data->y = matrix1D(nt+1);
-    solver_data->z = matrix1D(nt+1);
-    solver_data->p = matrix1D(nt+1);
-    solver_data->x = matrix1D(nt+1);
-    solver_data->xo = matrix1D(nx*ny+1);
-    solver_data->r = matrix1D(nt+1);
-    solver_data->T = matrix2D(nx+1,ny+1);
+	solver_data->A = matrix2D(nt+1,3+1);
+	solver_data->Astor = matrix2D(nt+1,3+1);
+	solver_data->y = matrix1D(nt+1);
+	solver_data->z = matrix1D(nt+1);
+	solver_data->p = matrix1D(nt+1);
+	solver_data->x = matrix1D(nt+1);
+	solver_data->xo = matrix1D(nx*ny+1);
+	solver_data->r = matrix1D(nt+1);
+	solver_data->T = matrix2D(nx+1,ny+1);
 
-    grid_coordinates->X = matrix2D(nx+1,ny+1);
-    grid_coordinates->Y = matrix2D(nx+1,ny+1);
+	grid_coordinates->X = matrix2D(nx+1,ny+1);
+	grid_coordinates->Y = matrix2D(nx+1,ny+1);
 
 }
 
 /*-----------------------------------------------------------------------------------------------*/
 void deallocate_solver_data_mem(solver_data_t* solver_data,
-                                grid_parameters_t grid_parameters,
-                                grid_coordinates_t* grid_coordinates)
+		                        grid_parameters_t grid_parameters)
 /*
  * Deallocate memory of solver data
  *
@@ -148,24 +135,20 @@ void deallocate_solver_data_mem(solver_data_t* solver_data,
  * input    grid_parameters
  */
 {
-    int nx, ny, nt;
+	int nx, ny, nt;
 
-    nx = grid_parameters.nx;
-    ny = grid_parameters.ny;
+	nx = grid_parameters.nx;
+	ny = grid_parameters.ny;
 
-    nt = nx * ny;
+	nt = nx * ny;
 
-    free_matrix2D(solver_data->A, nt+1);
-    free_matrix2D(solver_data->Astor, nt+1);
-    free_matrix1D(solver_data->y);
-    free_matrix1D(solver_data->z);
-    free_matrix1D(solver_data->p);
-    free_matrix1D(solver_data->x);
-    free_matrix1D(solver_data->x);
-    free_matrix1D(solver_data->r);
-    free_matrix2D(solver_data->T, nx+1);
-    free_matrix2D(grid_coordinates->X, nx+1);
-    free_matrix2D(grid_coordinates->Y, nx+1);
-
+	free_matrix2D(solver_data->A, nt+1);
+	free_matrix2D(solver_data->Astor, nt+1);
+	free_matrix1D(solver_data->y);
+	free_matrix1D(solver_data->z);
+	free_matrix1D(solver_data->p);
+	free_matrix1D(solver_data->x);
+	free_matrix1D(solver_data->x);
+	free_matrix1D(solver_data->r);
 
 }
