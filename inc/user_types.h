@@ -10,6 +10,9 @@
 
 #define SIZE_RESULTS 3
 
+typedef double (*source_ptr) (double, double, double);
+typedef double (*boundary_temp_ptr) (double, double);
+
 typedef struct grid_parameters {
 	double Lx;
 	double Ly;
@@ -31,10 +34,10 @@ typedef struct physical_params {
 } physical_params_t;
 
 typedef struct boundary_temperatures {
-	double (*Tnfunc)(double x, double t);
-	double (*Tsfunc)(double x, double t);
-	double (*Twfunc)(double y, double t);
-	double (*Tefunc)(double y, double t);
+    boundary_temp_ptr Tnfunc;
+    boundary_temp_ptr Tsfunc;
+    boundary_temp_ptr Twfunc;
+    boundary_temp_ptr Tefunc;
 } boundary_temperatures_t;
 
 typedef struct grid_coordinates {
@@ -55,8 +58,7 @@ typedef struct solver_data {
 } solver_data_t;
 
 typedef struct solver_results {
-    double** X;
-    double** Y;
+    grid_coordinates_t grid_coordinates;
     double **T;
 } solver_results_t;
 

@@ -18,7 +18,7 @@ void heat2D(grid_parameters_t grid_parameters,
 			time_parameters_t time_parameters,
 			physical_params_t physical_params,
 			boundary_temperatures_t boundary_temperatures,
-			double (*source_equation) (double, double, double),
+			source_ptr source_equation,
 			solver_results_t* solver_results)
 /*
  * This function solves the 2D transient heat conduction equation,
@@ -116,8 +116,8 @@ void heat2D(grid_parameters_t grid_parameters,
 	deallocate_solver_data_mem(&solver_data, grid_parameters);
 
 	/* Setting results */
-	solver_results->X = grid_coordinates.X;
-	solver_results->Y = grid_coordinates.Y;
+	solver_results->grid_coordinates.X = grid_coordinates.X;
+	solver_results->grid_coordinates.Y = grid_coordinates.Y;
 	solver_results->T = solver_data.T;
 
 }

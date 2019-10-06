@@ -60,8 +60,8 @@ int main(int argc, char *argv[])
 
 	/* Allocate result data */
 	solver_results.T = matrix2D( grid_parameters.nx, grid_parameters.ny);
-	solver_results.X = matrix2D( grid_parameters.nx, grid_parameters.ny);
-	solver_results.Y = matrix2D( grid_parameters.nx, grid_parameters.ny);
+	solver_results.grid_coordinates.X = matrix2D( grid_parameters.nx, grid_parameters.ny);
+	solver_results.grid_coordinates.Y = matrix2D( grid_parameters.nx, grid_parameters.ny);
 
 	/* Executing solver */
 	begin = clock();
@@ -91,8 +91,8 @@ int main(int argc, char *argv[])
 
 	/* Deallocate result data */
 	free_matrix2D(solver_results.T, grid_parameters.nx);
-	free_matrix2D(solver_results.X, grid_parameters.nx);
-	free_matrix2D(solver_results.Y, grid_parameters.nx);
+	free_matrix2D(solver_results.grid_coordinates.X, grid_parameters.nx);
+	free_matrix2D(solver_results.grid_coordinates.Y, grid_parameters.nx);
 
 	return 0;
 
