@@ -59,9 +59,9 @@ int main(int argc, char *argv[])
     boundary_temperatures.Twfunc = Twfunc;
 
     /* Allocate result data */
-    solver_results.T = matrix2D( grid_parameters.nx+1, grid_parameters.ny+1);
-    solver_results.grid_coordinates.X = matrix2D( grid_parameters.nx+1, grid_parameters.ny+1);
-    solver_results.grid_coordinates.Y = matrix2D( grid_parameters.nx+1, grid_parameters.ny+1);
+    solver_results.T = matrix2D( grid_parameters.nx + 1, grid_parameters.ny + 1);
+    solver_results.grid_coordinates.X = matrix2D( grid_parameters.nx + 1, grid_parameters.ny + 1);
+    solver_results.grid_coordinates.Y = matrix2D( grid_parameters.nx + 1, grid_parameters.ny + 1);
 
     /* Executing solver */
     begin = clock();
@@ -91,8 +91,8 @@ int main(int argc, char *argv[])
 
     /* Deallocate result data */
     free_matrix2D(solver_results.T, grid_parameters.nx);
-    free_matrix2D(solver_results.grid_coordinates.X, grid_parameters.nx);
-    free_matrix2D(solver_results.grid_coordinates.Y, grid_parameters.nx);
+    free_matrix2D(solver_results.grid_coordinates.X, grid_parameters.nx + 1);
+    free_matrix2D(solver_results.grid_coordinates.Y, grid_parameters.nx + 1);
 
     return 0;
 

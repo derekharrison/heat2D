@@ -33,8 +33,8 @@ void heat2D(grid_parameters_t grid_parameters,
  * output   solver_results
  */
 {
-    int nx, ny, maxts;
-    int imax, nt, it, countert;
+    int nx, ny;
+    int imax, nt, it;
     double error, dt, epsilon, to;
     grid_coordinates_t grid_coordinates = {0};
     solver_data_t solver_data = {0};
@@ -43,8 +43,6 @@ void heat2D(grid_parameters_t grid_parameters,
     ny = grid_parameters.ny;
 
     to = time_parameters.to;
-    maxts = time_parameters.maxts;
-
     dt = (time_parameters.tf - time_parameters.to) / time_parameters.maxts;
 
     nt = nx * ny;
@@ -63,7 +61,6 @@ void heat2D(grid_parameters_t grid_parameters,
                               &grid_coordinates);
 
     /* Entering ICCG loop */
-    countert = 0;
     time_parameters.t = to;
     do{
         calc_coefficient_matrix(grid_parameters,
@@ -104,9 +101,8 @@ void heat2D(grid_parameters_t grid_parameters,
         set_current_temperature(&solver_data,
                                 grid_parameters);
 
-        ++countert;
         time_parameters.t += dt;
-    }while(countert < maxts);
+    }while(time_parameters.t < time_parameters.tf);
 
     /* Processing results */
     set_result_data(&solver_data,
