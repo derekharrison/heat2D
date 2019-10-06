@@ -67,7 +67,7 @@ void calc_coefficient_matrix(grid_parameters_t grid_parameters,
                              time_parameters_t time_parameters,
                              physical_params_t physical_params,
                              solver_data_t* solver_data,
-                             double (*q)(double, double, double),
+                             source_ptr q,
                              boundary_temperatures_t boundary_temperatures)
 /*
  * Determine coefficient matrix
