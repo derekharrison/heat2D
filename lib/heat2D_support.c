@@ -296,7 +296,7 @@ void solve_Mz_is_r(solver_data_t* solver_data,
     solver_data->y[1] = solver_data->r[1] / solver_data->A[1][3];
     for (j = 2; j <=nx ; j++)
         solver_data->y[j] = (solver_data->r[j] - solver_data->A[j][2] * solver_data->y[j-1]) / solver_data->A[j][3];
-    for (j=nx+1;j<=nt;j++)
+    for (j = nx + 1; j <= nt; j++)
         solver_data->y[j] = (solver_data->r[j] - solver_data->A[j][1] * solver_data->y[j-nx] -
                             solver_data->A[j][2] * solver_data->y[j-1]) / solver_data->A[j][3];
 
@@ -307,7 +307,7 @@ void solve_Mz_is_r(solver_data_t* solver_data,
         nu = nt + 1 - j;
         solver_data->z[nu] = (solver_data->y[nu] - solver_data->A[nu+1][2] * solver_data->z[nu+1]) / solver_data->A[nu][3];
     }
-    for (j=nx+1;j<=nt;j++)
+    for (j = nx + 1; j <= nt; j++)
     {
         nu = nt + 1 - j;
         solver_data->z[nu] = (solver_data->y[nu] - solver_data->A[nu+1][2] * solver_data->z[nu+1] -
@@ -374,15 +374,15 @@ void perform_cgm(solver_data_t* solver_data,
     nx = grid_parameters.nx;
     nt = nx * grid_parameters.ny;
 
-    Astorp = matrix1D(nt+1);
+    Astorp = matrix1D(nt + 1);
 
     calc_Ap(solver_data,
             grid_parameters,
             Astorp);
 
     delold = dot_product(solver_data->r,
-                          solver_data->z,
-                          nt);
+                         solver_data->z,
+                         nt);
 
     pAstorp = dot_product(solver_data->z,
                           Astorp,
@@ -408,8 +408,8 @@ void perform_cgm(solver_data_t* solver_data,
                   grid_parameters);
 
     delnew = dot_product(solver_data->r,
-                          solver_data->z,
-                          nt);
+                         solver_data->z,
+                         nt);
 
     B = delnew/delold;
 
