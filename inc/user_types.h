@@ -14,23 +14,23 @@ typedef double (*source_ptr) (double, double, double);
 typedef double (*boundary_temp_ptr) (double, double);
 
 typedef struct grid_parameters {
-	double Lx;
-	double Ly;
-	int nx;
-	int ny;
+    double Lx;
+    double Ly;
+    int nx;
+    int ny;
 } grid_parameters_t;
 
 typedef struct time_parameters {
-	double to;
-	double tf;
-	double t;
-	int maxts;
+    double to;
+    double tf;
+    double t;
+    int maxts;
 } time_parameters_t;
 
 typedef struct physical_params {
-	double rho;
-	double Cp;
-	double gamma;
+    double rho;
+    double Cp;
+    double gamma;
 } physical_params_t;
 
 typedef struct boundary_temperatures {
@@ -46,15 +46,15 @@ typedef struct grid_coordinates {
 } grid_coordinates_t;
 
 typedef struct solver_data {
-	double **A;
-	double **Astor;
-	double *y;
-	double *z;
-	double *p;
-	double *x;
-	double *xo;
-	double *r;
-	double **T;
+    double **A;
+    double **Astor;
+    double *y;
+    double *z;
+    double *p;
+    double *x;
+    double *xo;
+    double *r;
+    double **T;
 } solver_data_t;
 
 typedef struct solver_results {
