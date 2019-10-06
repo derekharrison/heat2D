@@ -10,12 +10,6 @@
 
 #define SIZE_RESULTS 3
 
-enum result_type {
-	X_COORDINATES = 0,
-	Y_COORDINATES = 1,
-	TEMPERATURE = 2,
-};
-
 typedef struct grid_parameters {
 	double Lx;
 	double Ly;
@@ -37,7 +31,6 @@ typedef struct physical_params {
 } physical_params_t;
 
 typedef struct boundary_temperatures {
-	double (*q)(double x, double y, double t);
 	double (*Tnfunc)(double x, double t);
 	double (*Tsfunc)(double x, double t);
 	double (*Twfunc)(double y, double t);
@@ -60,5 +53,11 @@ typedef struct solver_data {
 	double *r;
 	double **T;
 } solver_data_t;
+
+typedef struct solver_results {
+    double** X;
+    double** Y;
+    double **T;
+} solver_results_t;
 
 #endif /* USER_TYPES_H_ */
