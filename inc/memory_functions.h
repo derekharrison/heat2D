@@ -10,12 +10,10 @@
 
 #include "user_types.h"
 
-double *matrix1D(int np);
-void free_matrix1D(double *a);
-double **matrix2D( int nm, int np);
-void free_matrix2D(double** m, int nm);
-double ***matrix3D( int nx, int ny, int nz);
-
+double *matrix1D(int n);
+void free_matrix1D(double *vec_ptr);
+double **matrix2D( int nx, int ny);
+void free_matrix2D(double** mat_ptr, int nx);
 void allocate_solver_data_mem(solver_data_t* solver_data,
                               grid_parameters_t grid_parameters,
                               grid_coordinates_t* grid_coordinates);

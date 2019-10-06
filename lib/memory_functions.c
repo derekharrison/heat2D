@@ -10,7 +10,7 @@
 #include "../inc/user_types.h"
 
 /*-----------------------------------------------------------------------------------------------*/
-double *matrix1D(int np)
+double *matrix1D(int n)
 /*
  * Allocate memory for vector of size np
  *
@@ -20,7 +20,7 @@ double *matrix1D(int np)
 {
     double *vec;
 
-    vec = (double *) calloc(np, sizeof(double));
+    vec = (double *) calloc(n, sizeof(double));
 
     return vec;
 
@@ -39,7 +39,7 @@ void free_matrix1D(double *vec_ptr)
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-double **matrix2D( int nm, int np)
+double **matrix2D( int nx, int ny)
 /*
  * Allocate memory for matrix of size nm  by np
  *
@@ -49,18 +49,18 @@ double **matrix2D( int nm, int np)
  */
 {
    int i;
-   double **mat;
+   double **mat_ptr;
 
-   mat = (double **) calloc ( nm, sizeof( double *));
-   for ( i = 0; i < nm; i++)
-      mat[i] = (double *) calloc ( np, sizeof( double));
+   mat_ptr = (double **) calloc ( nx, sizeof( double *));
+   for(i = 0; i < nx; i++)
+       mat_ptr[i] = (double *) calloc ( ny, sizeof( double));
 
-   return mat;
+   return mat_ptr;
 
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-void free_matrix2D(double** m, int nm)
+void free_matrix2D(double** mat_ptr, int nx)
 /*
  * Deallocate memory of matrix of size nm
  *
@@ -69,10 +69,10 @@ void free_matrix2D(double** m, int nm)
  */
 {
    int i;
-   for ( i = 0; i < nm; i++)
-      free(m[i]);
+   for(i = 0; i < nx; i++)
+      free(mat_ptr[i]);
 
-   free(m);
+   free(mat_ptr);
 
 }
 

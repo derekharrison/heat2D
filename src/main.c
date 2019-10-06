@@ -39,17 +39,17 @@ int main(int argc, char *argv[])
 
     /* Adjustable parameters */
     grid_parameters.Lx = 4.0;           //Length of domain (m) along x coordinate
-    grid_parameters.Ly = 7.0;            //length of domain (m) along y coordinate
+    grid_parameters.Ly = 7.0;           //length of domain (m) along y coordinate
     grid_parameters.nx = 8;             //Amount of nodes along x coordinate
-    grid_parameters.ny = 8;                //amount of nodes along y coordinate
+    grid_parameters.ny = 8;             //amount of nodes along y coordinate
 
     time_parameters.maxts = 100;        //amount of timesteps
-    time_parameters.to = 0.0;            //initial time (s). Start of simulation
-    time_parameters.tf = 1.0;            //final time (s). End of simulation
+    time_parameters.to = 0.0;           //initial time (s). Start of simulation
+    time_parameters.tf = 1.0;           //final time (s). End of simulation
 
     physical_params.gamma = 2.0;        //Heat conductivity (W/mK)
-    physical_params.rho = 1.0;            //material density (kg/m3)
-    physical_params.Cp = 2.0;            //heat capacity (J/kgK)
+    physical_params.rho = 1.0;          //material density (kg/m3)
+    physical_params.Cp = 2.0;           //heat capacity (J/kgK)
     /* End adjustable parameters */
 
     /* Setting boundary functions */
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
     printf("\ntime spent: %f\n", time_spent);
 
     /* Deallocate result data */
-    free_matrix2D(solver_results.T, grid_parameters.nx);
+    free_matrix2D(solver_results.T, grid_parameters.nx + 1);
     free_matrix2D(solver_results.grid_coordinates.X, grid_parameters.nx + 1);
     free_matrix2D(solver_results.grid_coordinates.Y, grid_parameters.nx + 1);
 
