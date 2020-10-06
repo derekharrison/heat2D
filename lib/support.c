@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "../inc/user_types.h"
 
-void export_data(g_data grid_data, s_data* solver_data)
+void export_data(g_data grid_data, s_data solver_data)
 {
     int i, j;
     /*Exporting data*/
@@ -21,7 +21,7 @@ void export_data(g_data grid_data, s_data* solver_data)
         {
             for(i = 1; i <= grid_data.nx; i++)
             {
-                fprintf(file,"%f %f %f",solver_data->X[i][j], solver_data->Y[i][j], solver_data->T[i][j]);
+                fprintf(file,"%f %f %f",solver_data.X[i][j], solver_data.Y[i][j], solver_data.T[i][j]);
                 fprintf(file,"\n");
             }
         }

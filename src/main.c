@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     heat2D(grid_data, time_data, physical_params, boundaries, &solver_data);
 
     /*Export data to file for visualization*/
-    export_data(grid_data, &solver_data);
+    export_data(grid_data, solver_data);
 
     /*Free allocated data*/
     free2Df(solver_data.X, grid_data.nx+1);
