@@ -12,9 +12,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include "../inc/boundaries_and_source.h"
 #include "../inc/heat.h"
 #include "../inc/memory_functions.h"
-#include "../inc/boundaries_and_source.h"
+#include "../inc/support.h"
 #include "../inc/user_types.h"
 
 int main(int argc, char *argv[])
@@ -52,7 +53,10 @@ int main(int argc, char *argv[])
     boundaries.Twfunc = Twfunc;
 
     /*Execute solver*/
-    heat2D(grid_data, time_data, physical_params, boundaries, solver_data);
+    heat2D(grid_data, time_data, physical_params, boundaries, &solver_data);
+
+    /*Export data to file for visualization*/
+    export_data(grid_data, &solver_data);
 
     /*Free allocated data*/
     free2Df(solver_data.X, grid_data.nx+1);

@@ -12,7 +12,7 @@
 #include "../inc/memory_functions.h"
 #include "../inc/user_types.h"
 
-void heat2D(g_data grid_data, t_data time_data, p_params physical_params, boundaries_t boundaries, s_data solver_data)
+void heat2D(g_data grid_data, t_data time_data, p_params physical_params, boundaries_t boundaries, s_data* solver_data)
 {
     double Lx, Ly, gamma, tolerance, Ti;
     double rho, Cp, to, tf;
@@ -73,8 +73,8 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
     for (i = 1; i<= nx; i++)
         for (j = 1; j <= ny; j++)
         {
-            solver_data.X[i][j] = i*deltax-deltax/2;
-            solver_data.Y[i][j] = j*deltay-deltay/2;
+            solver_data->X[i][j] = i*deltax-deltax/2;
+            solver_data->Y[i][j] = j*deltay-deltay/2;
         }
 
     /*Entering ICCG loop*/
@@ -94,7 +94,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = -b;
                 A[nn][2] = -a;
                 A[nn][3] = K+2*a+2*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]-(A[nn][3]*xo[nn]-a*xo[nn-1]-a*xo[nn+1]-b*xo[nn+nx]-b*xo[nn-nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]-(A[nn][3]*xo[nn]-a*xo[nn-1]-a*xo[nn+1]-b*xo[nn+nx]-b*xo[nn-nx]);
             }
 
         //Generating upper central coefficients and source terms
@@ -105,7 +105,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = -b;
                 A[nn][2] = -a;
                 A[nn][3] = K+2*a+3*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tnfunc(solver_data.X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-a*xo[nn+1]-b*xo[nn-nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tnfunc(solver_data->X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-a*xo[nn+1]-b*xo[nn-nx]);
             }
 
         //Generating upper left node coefficients and source terms
@@ -116,7 +116,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = -b;
                 A[nn][2] = 0;
                 A[nn][3] = K+3*a+3*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tnfunc(solver_data.X[i][j],t)+2*a*boundaries.Twfunc(solver_data.Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn+1]-b*xo[nn-nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tnfunc(solver_data->X[i][j],t)+2*a*boundaries.Twfunc(solver_data->Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn+1]-b*xo[nn-nx]);
             }
 
         //Generating upper right node coefficients and source terms
@@ -127,7 +127,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = -b;
                 A[nn][2] = -a;
                 A[nn][3] = K+3*a+3*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tnfunc(solver_data.X[i][j],t)+2*a*boundaries.Tefunc(solver_data.Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-b*xo[nn-nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tnfunc(solver_data->X[i][j],t)+2*a*boundaries.Tefunc(solver_data->Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-b*xo[nn-nx]);
             }
 
         //Generating left central node coefficients and source terms
@@ -138,7 +138,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = -b;
                 A[nn][2] = 0;
                 A[nn][3] = K+3*a+2*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Twfunc(solver_data.Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn+1]-b*xo[nn+nx]-b*xo[nn-nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Twfunc(solver_data->Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn+1]-b*xo[nn+nx]-b*xo[nn-nx]);
             }
 
         //Generating lower left node coefficients and source terms
@@ -149,7 +149,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = 0;
                 A[nn][2] = 0;
                 A[nn][3] = K+3*a+3*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Twfunc(solver_data.Y[i][j],t)+2*b*boundaries.Tsfunc(solver_data.X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn+1]-b*xo[nn+nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Twfunc(solver_data->Y[i][j],t)+2*b*boundaries.Tsfunc(solver_data->X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn+1]-b*xo[nn+nx]);
             }
 
         //Generating lower central node coefficients and source terms
@@ -160,7 +160,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = 0;
                 A[nn][2] = -a;
                 A[nn][3] = K+2*a+3*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tsfunc(solver_data.X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-a*xo[nn+1]-b*xo[nn+nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*b*boundaries.Tsfunc(solver_data->X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-a*xo[nn+1]-b*xo[nn+nx]);
             }
 
         //Generating lower right node coefficients and source terms
@@ -171,7 +171,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = 0;
                 A[nn][2] = -a;
                 A[nn][3] = K+3*a+3*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Tefunc(solver_data.Y[i][j],t)+2*b*boundaries.Tsfunc(solver_data.X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-b*xo[nn+nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Tefunc(solver_data->Y[i][j],t)+2*b*boundaries.Tsfunc(solver_data->X[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-b*xo[nn+nx]);
             }
 
         //Generating right central node coefficients and source terms
@@ -182,7 +182,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
                 A[nn][1] = -b;
                 A[nn][2] = -a;
                 A[nn][3] = K+3*a+2*b;
-                r[nn] = boundaries.source(solver_data.X[i][j],solver_data.Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Tefunc(solver_data.Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-b*xo[nn+nx]-b*xo[nn-nx]);
+                r[nn] = boundaries.source(solver_data->X[i][j],solver_data->Y[i][j],t)*d2+K*xo[nn]+2*a*boundaries.Tefunc(solver_data->Y[i][j],t)-(A[nn][3]*xo[nn]-a*xo[nn-1]-b*xo[nn+nx]-b*xo[nn-nx]);
             }
 
         //Storing coefficient matrix entries of A in Astor
@@ -329,39 +329,7 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
     /*Processing results*/
     for (i = 1; i <= nx; i++)
         for (j = 1; j <= ny; j++)
-        	solver_data.T[i][j] = x[i+(j-1)*nx];
-
-    /*Exporting data*/
-    FILE *file;
-    file = fopen("numerical_temperature_data.txt","w");
-    if (file != NULL)
-    {
-        for(j = 1;j <= ny; j++)
-        {
-            for(i = 1; i <= nx; i++)
-            {
-                fprintf(file,"%f %f %f",solver_data.X[i][j], solver_data.Y[i][j], solver_data.T[i][j]);
-                fprintf(file,"\n");
-            }
-        }
-
-        fclose(file);
-    }
-    else
-    {
-        printf("Could not open file");
-    }
-
-    file = fopen("grid_data.txt","w");
-    if (file != NULL)
-    {
-        fprintf(file,"%i %i %f %f",nx, ny, Lx, Ly);
-        fclose(file);
-    }
-    else
-    {
-        printf("Could not open file");
-    }
+        	solver_data->T[i][j] = x[i+(j-1)*nx];
 
     /*Freeing memory*/
     free(z);free(y);free(r);free2Df(A, nx+1);free2Df(Astor, nx+1);
