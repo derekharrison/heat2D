@@ -3,3 +3,9 @@ Debug/
 .cproject
 .project
 exe
+*png
+*aux
+*log
+*tex
+*gz
+*txt
