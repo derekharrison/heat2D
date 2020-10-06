@@ -29,10 +29,6 @@ for i in range(0, nx):
         X_2d[i][j] = X[num]
         Y_2d[i][j] = Y[num]
         T_2d[i][j] = T[num]
-        
-X_2d = np.array(X_2d)
-Y_2d = np.array(Y_2d)
-T_2d = np.array(T_2d)
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
