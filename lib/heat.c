@@ -329,7 +329,9 @@ void heat2D(g_data grid_data, t_data time_data, p_params physical_params, bounda
     /*Processing results*/
     for (i = 1; i <= nx; i++)
         for (j = 1; j <= ny; j++)
-        	solver_data->T[i][j] = x[i+(j-1)*nx];
+        {
+            solver_data->T[i][j] = x[i+(j-1)*nx];
+        }
 
     /*Freeing memory*/
     free(z);free(y);free(r);free2Df(A, nx+1);free2Df(Astor, nx+1);

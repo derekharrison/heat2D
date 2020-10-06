@@ -30,9 +30,9 @@ double** matrix2D( int nx, int ny)
 
 void free2Df(double** m, int nx)
 {
-	int i;
+    int i;
     for (i = 0; i < nx; i++)
-	    free(m[i]);
+        free(m[i]);
 
     free(m);
 }

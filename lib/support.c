@@ -11,7 +11,7 @@
 
 void export_data(g_data grid_data, s_data* solver_data)
 {
-	int i, j;
+    int i, j;
     /*Exporting data*/
     FILE *file;
     file = fopen("numerical_temperature_data.txt","w");
