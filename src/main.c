@@ -12,10 +12,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include "heat.h"
-#include "memory_functions.h"
-#include "parameters_and_boundaries.h"
-#include "user_types.h"
+#include "../inc/heat.h"
+#include "../inc/memory_functions.h"
+#include "../inc/boundaries_and_source.h"
+#include "../inc/user_types.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,9 +35,9 @@ int main(int argc, char *argv[])
     time_data.to = 0.0;                       //initial time (s). Start of simulation
     time_data.tf = 0.01;                      //final time (s). End of simulation
 
-    physical_params.gamma = 1.0;                    //Heat conductivity (W/mK)
-    physical_params.rho = 1.0;                      //material density (kg/m3)
-    physical_params.Cp = 1.0;                       //heat capacity (J/kgK)
+    physical_params.gamma = 1.0;              //Heat conductivity (W/mK)
+    physical_params.rho = 1.0;                //material density (kg/m3)
+    physical_params.Cp = 1.0;                 //heat capacity (J/kgK)
 
     /*Allocate memory for solver data*/
     solver_data.X =  matrix2D(grid_data.nx+1,grid_data.ny+1);
