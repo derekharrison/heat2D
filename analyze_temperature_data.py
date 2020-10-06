@@ -1,14 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.pylab as plab
-import scipy.stats
-from numpy import *
-import matplotlib.animation as manimation
-import time
-import sys
 from mpl_toolkits.mplot3d import Axes3D
-
-start_time = time.time()
 
 grid_data_file = 'grid_data.txt'
 nx, ny, Lx, Ly = np.genfromtxt(grid_data_file, unpack=True)
